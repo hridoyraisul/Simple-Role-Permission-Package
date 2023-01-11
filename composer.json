@@ -1,0 +1,19 @@
+{
+    "name": "raisulhridoy/simplerolepermission",
+    "description": "This will provide simple role permission functionalities for the user.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "RaisulHridoy\\SimpleRolePermission\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "hridoyraisul",
+            "email": "raisulhridoy@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
