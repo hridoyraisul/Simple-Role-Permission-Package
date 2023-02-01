@@ -29,7 +29,7 @@ class SRP extends Controller
             $role->slug = Str::slug($role_name);
             $role->identifier = rand(100000, 999999);
             $role->save();
-            return Utility::successResponse('Role created successfully');
+            return Utility::successResponse('Role created successfully', $role);
         } catch (\Exception $e) {
             return Utility::errorResponse($e->getMessage());
         }

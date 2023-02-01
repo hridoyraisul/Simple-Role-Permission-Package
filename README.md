@@ -1,28 +1,44 @@
-# Foobar
+# Simple Role Permission
 
-Foobar is a Python library for dealing with word pluralization.
+This package will provide simple role permission functionalities for the user.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [composer](https://getcomposer.org/installer) to install this package.
 
 ```bash
-pip install foobar
+composer require raisulhridoy/simplerolepermission
 ```
 
-## Usage
+```bash
+php artisan vendor:publish --provider="RaisulHridoy\SimpleRolePermission\SRPServiceProvider"
+```
 
-```python
-import foobar
 
-# returns 'words'
-foobar.pluralize('word')
+# Basic Usage
 
-# returns 'geese'
-foobar.pluralize('goose')
+## Create a new role
+```php
+# Initialize the namespace
+use RaisulHridoy\SimpleRolePermission\Http\App\SRP;
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+# Create a new role with name 'admin'
+(new SRP)->createRole('Admin');
+
+# Can also be catch response as
+$response = (new SRP)->createRole('Admin');
+
+# Response will be like
+$response = [
+    'status' => 'success',
+    'message' => 'Role created successfully',
+    'data' => [
+        'id' => 1,
+        'name' => 'Admin',
+        'slug' => 'admin',
+        'identifier' => 569832,
+    ]
+];
 ```
 
 ## Contributing
