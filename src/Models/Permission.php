@@ -9,4 +9,5 @@ class Permission extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $timestamp = false;
 }

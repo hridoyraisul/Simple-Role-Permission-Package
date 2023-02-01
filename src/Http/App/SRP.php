@@ -254,8 +254,8 @@ class SRP extends Controller
         try {
             $permission = RoleHasPermission::where('role_id', $role_id)
                 ->whereHas('permission', function ($query) use ($permission_name) {
-                $query->where('name', $permission_name);
-            })->first();
+                    $query->where('name', $permission_name);
+                })->first();
             if (!$permission) {
                 return false;
             } else {

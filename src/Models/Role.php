@@ -9,6 +9,7 @@ class Role extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $timestamp = false;
 
     public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
