@@ -1,5 +1,6 @@
 <?php
 namespace RaisulHridoy\SimpleRolePermission;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class SRPServiceProvider extends ServiceProvider
@@ -26,6 +27,15 @@ class SRPServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/database/seeders' => database_path('seeders'),
         ]);
+
+        Blade::directive('hrid', function($expression) {
+            $params = explode(',', $expression);
+            $condition = $params[0];
+            $positive = $params[1];
+            $negative = isset($params[2]) ? $params[2] : "''";
+            $parsed = "<?php echo e($condition ?  $positive : $negative) ?>";
+            return $parsed;
+        });
     }
 
     /**
