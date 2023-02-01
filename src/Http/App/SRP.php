@@ -11,6 +11,20 @@ use RaisulHridoy\SimpleRolePermission\Utilities\Utility;
 
 class SRP extends Controller
 {
+
+    /**
+     * @return array
+     */
+    public function allRoles(): array
+    {
+        try {
+            $roles = Role::query()->with('permissions')->get();
+            return Utility::successResponse('All roles', $roles);
+        } catch (\Exception $e) {
+            return Utility::errorResponse($e->getMessage());
+        }
+    }
+
     /**
      * @param $role_name
      * @return array
