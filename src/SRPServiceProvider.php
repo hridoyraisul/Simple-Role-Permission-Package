@@ -2,6 +2,7 @@
 namespace RaisulHridoy\SimpleRolePermission;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use RaisulHridoy\SimpleRolePermission\Models\Role;
 
 class SRPServiceProvider extends ServiceProvider
 {
@@ -28,13 +29,10 @@ class SRPServiceProvider extends ServiceProvider
             __DIR__.'/database/seeders' => database_path('seeders'),
         ]);
 
-        Blade::directive('hrid', function($expression) {
-            $params = explode(',', $expression);
-            $condition = $params[0];
-            $positive = $params[1];
-            $negative = isset($params[2]) ? $params[2] : "''";
-            $parsed = "<?php echo e($condition ?  $positive : $negative) ?>";
-            return $parsed;
+        Blade::directive('cando', function($role_name_or_slug,$permission_name_or_group) {
+            $role = Role::where('name',$role_name_or_slug)->orWhere('slug',$role_name_or_slug)->first();
+            $permission = $role->permissions()->where('name',$permission_name_or_group)->orWhere('group',$permission_name_or_group)->first();
+            return "<?php if($permission){return true;}else{return false;}  ?>";
         });
     }
 
