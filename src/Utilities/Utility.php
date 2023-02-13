@@ -20,10 +20,6 @@ class Utility
         return __NAMESPACE__;
     }
 
-    public static function getPackageViewPath()
-    {
-        return self::getPackagePath() . 'resources/views/';
-    }
 
     /**
      * @param $message
