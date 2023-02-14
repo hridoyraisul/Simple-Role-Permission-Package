@@ -13,8 +13,19 @@ Publish the package configuration
 ```bash
 php artisan vendor:publish --provider="RaisulHridoy\SimpleRolePermission\SRPServiceProvider"
 ```
-Run the migration
+Specify table name corresponding to the role and permission functionality in ".env" file. By default, it will be 'users' respectively and "role_id" column will be added in this table.
 ```bash
+ROLE_WITH_TABLE=
+```
+For example, if you want to use "admins" table for the role functionality, then you have to specify like this in ".env" file.
+```bash
+ROLE_WITH_TABLE=admins
+```
+
+Run these commands to clear the cache and migrate the database.
+```bash
+php artisan config:clear
+php artisan cache:clear
 php artisan migrate
 ```
 
