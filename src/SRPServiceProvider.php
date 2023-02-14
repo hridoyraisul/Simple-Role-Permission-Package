@@ -3,6 +3,7 @@ namespace RaisulHridoy\SimpleRolePermission;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use RaisulHridoy\SimpleRolePermission\Models\Role;
+use RaisulHridoy\SimpleRolePermission\Utilities\Utility;
 
 class SRPServiceProvider extends ServiceProvider
 {
@@ -31,11 +32,8 @@ class SRPServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/database/seeders' => database_path('seeders'),
         ]);
-
-
         Blade::directive('cando', function($role_name_or_slug,$permission_name_or_group) {
-            $role = Role::where('name',$role_name_or_slug)->orWhere('slug',$role_name_or_slug)->first();
-            $permission = $role->permissions()->where('name',$permission_name_or_group)->orWhere('group',$permission_name_or_group)->first();
+            $permission = Utility::rolePermissionCheck($role_name_or_slug,$permission_name_or_group);
             return "<?php if($permission){return true;}else{return false;}  ?>";
         });
     }
