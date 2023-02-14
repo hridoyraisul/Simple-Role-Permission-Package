@@ -16,8 +16,11 @@ class SRPServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->loadViewsFrom(__DIR__.'/resources/views', 'srp');
+        $this->mergeConfigFrom(
+            __DIR__.'/config/srp.php', 'srp'
+        );
         $this->publishes([
-            __DIR__.'/resources/views' => resource_path('views/vendor/srp'),
+            __DIR__.'/config/srp.php' => config_path('srp.php'),
         ]);
         $this->publishes([
             __DIR__.'/config/srp.php' => config_path('srp.php'),
@@ -28,6 +31,7 @@ class SRPServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/database/seeders' => database_path('seeders'),
         ]);
+
 
         Blade::directive('cando', function($role_name_or_slug,$permission_name_or_group) {
             $role = Role::where('name',$role_name_or_slug)->orWhere('slug',$role_name_or_slug)->first();

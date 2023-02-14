@@ -9,9 +9,13 @@ Use the package manager [composer](https://getcomposer.org/installer) to install
 ```bash
 composer require raisulhridoy/simplerolepermission
 ```
-
+Publish the package configuration
 ```bash
 php artisan vendor:publish --provider="RaisulHridoy\SimpleRolePermission\SRPServiceProvider"
+```
+Run the migration
+```bash
+php artisan migrate
 ```
 
 
