@@ -35,7 +35,7 @@ class SRP extends Controller
             if ($role_name == null) {
                 return Utility::errorResponse('Role name is required');
             }
-            if (Role::where('name', $role_name)->first()) {
+            if (Role::where('name', $role_name)->exists()) {
                 return Utility::errorResponse('Role already exists');
             }
             $role = new Role();
