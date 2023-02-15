@@ -71,7 +71,7 @@ Please make sure to update tests as appropriate.
 
 MIT License
 
-Copyright (c) 2023 [Raisul Islam Hridoy](https://bd.linkedin.com/in/raisulhridoy)
+Copyright (c) 2023 || Developed by [Raisul Islam Hridoy](https://bd.linkedin.com/in/raisulhridoy)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
