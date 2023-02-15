@@ -20,7 +20,6 @@ class AddRoleIdToCustoms extends Migration
     {
         Schema::table($this->tableName, function (Blueprint $table) {
             $table->unsignedBigInteger('role_id')->nullable();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
         });
     }
 
