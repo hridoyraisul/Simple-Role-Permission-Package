@@ -9,6 +9,10 @@ Use the package manager [composer](https://getcomposer.org/installer) to install
 ```bash
 composer require raisulhridoy/simplerolepermission
 ```
+Add the service provider in config/app.php file in the providers array as below:
+```bash
+RaisulHridoy\SimpleRolePermission\SRPServiceProvider::class,
+```
 Publish the package configuration
 ```bash
 php artisan vendor:publish --provider="RaisulHridoy\SimpleRolePermission\SRPServiceProvider"
