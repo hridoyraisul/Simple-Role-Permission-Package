@@ -22,7 +22,7 @@ class SRPServiceProvider extends ServiceProvider
         );
         $this->publishes([
             __DIR__.'/config/srp.php' => config_path('srp.php'),
-        ], 'config');
+        ]);
         $this->publishes([
             __DIR__.'/config/srp.php' => config_path('srp.php'),
         ]);
