@@ -1,6 +1,6 @@
 {
     "name": "raisulhridoy/simplerolepermission",
-    "description": "This will provide simple role permission functionalities for the user.",
+    "description": "This is a lightweight and easy-to-use Laravel package that allows you to manage user roles and permissions in your application with minimal effort. With this package, you can use lots of pre-defined methods for implementing roles and permissions, as well as assign roles to users and check their permissions. This package provides a simple and intuitive way of coding that makes it easy to integrate with your existing application. It also comes with built-in middleware that you can use to protect routes based on user roles and permissions. Whether you're building a small application or a large-scale system, \"Simple Role Permission\" provides a flexible and scalable solution for managing user roles and permissions. It's perfect for developers who want a simple and lightweight package that gets the job done without any unnecessary complexity.",
     "type": "library",
     "license": "MIT",
     "autoload": {

@@ -14,10 +14,14 @@ class SRP
     /**
      * @return array
      */
-    public static function allRoles(): array
+    public static function allRoles($paginate = null): array
     {
         try {
-            $roles = Role::query()->with('permissions')->get();
+            if ($paginate === null ){
+                $roles = Role::query()->with('permissions')->get();
+            } else{
+                $roles = Role::query()->with('permissions')->paginate($paginate);
+            }
             return Utility::successResponse('All roles', $roles);
         } catch (\Exception $e) {
             return Utility::errorResponse($e->getMessage());
@@ -92,6 +96,20 @@ class SRP
             RoleHasPermission::where('role_id', $role_id)->delete();
             $role->delete();
             return Utility::successResponse('Role deleted successfully');
+        } catch (\Exception $e) {
+            return Utility::errorResponse($e->getMessage());
+        }
+    }
+
+    public static function allPermissions($paginate = null): array
+    {
+        try {
+            if ($paginate === null){
+                $permissions = Permission::query()->get();
+            } else{
+                $permissions = Permission::query()->paginate($paginate);
+            }
+            return Utility::successResponse('All Permissions', $permissions);
         } catch (\Exception $e) {
             return Utility::errorResponse($e->getMessage());
         }
@@ -201,7 +219,7 @@ class SRP
             $permission->name = $permission_name;
             $permission->group = $permission_group;
             $permission->save();
-            return Utility::successResponse('Permission created successfully');
+            return Utility::successResponse('Permission created successfully',$permission);
         } catch (\Exception $e) {
             return Utility::errorResponse($e->getMessage());
         }
@@ -229,7 +247,7 @@ class SRP
             $permission->name = $permission_name;
             $permission->group = $permission_group ?? $permission->group;
             $permission->save();
-            return Utility::successResponse('Permission updated successfully');
+            return Utility::successResponse('Permission updated successfully',$permission);
         } catch (\Exception $e) {
             return Utility::errorResponse($e->getMessage());
         }
