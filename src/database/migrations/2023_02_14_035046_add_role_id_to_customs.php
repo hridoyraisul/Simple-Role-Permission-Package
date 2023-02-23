@@ -19,7 +19,9 @@ class AddRoleIdToCustoms extends Migration
     public function up()
     {
         Schema::table($this->tableName, function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id')->nullable();
+            if (Schema::hasTable($this->tableName) && !Schema::hasColumn($this->tableName, 'role_id')) {
+                $table->unsignedBigInteger('role_id')->nullable();
+            }
         });
     }
 
