@@ -2,23 +2,26 @@
 
 namespace RaisulHridoy\SimpleRolePermission\Http\App;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use RaisulHridoy\SimpleRolePermission\Models\Permission;
 use RaisulHridoy\SimpleRolePermission\Models\Role;
 use RaisulHridoy\SimpleRolePermission\Models\RoleHasPermission;
 use RaisulHridoy\SimpleRolePermission\Utilities\Utility;
 
-class SRP extends Controller
+class SRP
 {
 
     /**
      * @return array
      */
-    public function allRoles(): array
+    public static function allRoles($paginate = null): array
     {
         try {
-            $roles = Role::query()->with('permissions')->get();
+            if ($paginate === null ){
+                $roles = Role::query()->with('permissions')->get();
+            } else{
+                $roles = Role::query()->with('permissions')->paginate($paginate);
+            }
             return Utility::successResponse('All roles', $roles);
         } catch (\Exception $e) {
             return Utility::errorResponse($e->getMessage());
@@ -29,7 +32,7 @@ class SRP extends Controller
      * @param $role_name
      * @return array
      */
-    public function createRole($role_name = null): array
+    public static function createRole($role_name = null): array
     {
         try {
             if ($role_name == null) {
@@ -54,7 +57,7 @@ class SRP extends Controller
      * @param $role_name
      * @return array
      */
-    public function updateRole($role_id = null, $role_name = null): array
+    public static function updateRole($role_id = null, $role_name = null): array
     {
         try {
             if ($role_id == null) {
@@ -80,7 +83,7 @@ class SRP extends Controller
      * @param $role_id
      * @return array
      */
-    public function deleteRole($role_id = null): array
+    public static function deleteRole($role_id = null): array
     {
         try {
             if ($role_id == null) {
@@ -98,12 +101,26 @@ class SRP extends Controller
         }
     }
 
+    public static function allPermissions($paginate = null): array
+    {
+        try {
+            if ($paginate === null){
+                $permissions = Permission::query()->get();
+            } else{
+                $permissions = Permission::query()->paginate($paginate);
+            }
+            return Utility::successResponse('All Permissions', $permissions);
+        } catch (\Exception $e) {
+            return Utility::errorResponse($e->getMessage());
+        }
+    }
+
     /**
      * @param $role_id
      * @param array $permissionIDs
      * @return array
      */
-    public function syncPermission($role_id = null, array $permissionIDs = []): array
+    public static function syncPermission($role_id = null, array $permissionIDs = []): array
     {
         try {
             if ($role_id == null) {
@@ -130,7 +147,7 @@ class SRP extends Controller
      * @param $role_id
      * @return array
      */
-    public function assignedPermissions($role_id = null): array
+    public static function assignedPermissions($role_id = null): array
     {
         try {
             if ($role_id == null) {
@@ -150,7 +167,7 @@ class SRP extends Controller
      * @param $role_id
      * @return array
      */
-    public function assignedPermissionsGroup($role_id = null): array
+    public static function assignedPermissionsGroup($role_id = null): array
     {
         try {
             if ($role_id == null) {
@@ -171,7 +188,7 @@ class SRP extends Controller
      * @param $role_id
      * @return array
      */
-    public function assignedPermissionIDs($role_id = null): array
+    public static function assignedPermissionIDs($role_id = null): array
     {
         try {
             if ($role_id == null) {
@@ -189,7 +206,7 @@ class SRP extends Controller
      * @param $permission_group
      * @return array
      */
-    public function createPermission($permission_name = null, $permission_group = null): array
+    public static function createPermission($permission_name = null, $permission_group = null): array
     {
         try {
             if ($permission_name == null) {
@@ -202,7 +219,7 @@ class SRP extends Controller
             $permission->name = $permission_name;
             $permission->group = $permission_group;
             $permission->save();
-            return Utility::successResponse('Permission created successfully');
+            return Utility::successResponse('Permission created successfully',$permission);
         } catch (\Exception $e) {
             return Utility::errorResponse($e->getMessage());
         }
@@ -214,7 +231,7 @@ class SRP extends Controller
      * @param $permission_group
      * @return array
      */
-    public function updatePermission($permission_id = null, $permission_name = null, $permission_group = null): array
+    public static function updatePermission($permission_id = null, $permission_name = null, $permission_group = null): array
     {
         try {
             if ($permission_id == null) {
@@ -230,7 +247,7 @@ class SRP extends Controller
             $permission->name = $permission_name;
             $permission->group = $permission_group ?? $permission->group;
             $permission->save();
-            return Utility::successResponse('Permission updated successfully');
+            return Utility::successResponse('Permission updated successfully',$permission);
         } catch (\Exception $e) {
             return Utility::errorResponse($e->getMessage());
         }
@@ -240,7 +257,7 @@ class SRP extends Controller
      * @param $permission_id
      * @return array
      */
-    public function deletePermission($permission_id = null): array
+    public static function deletePermission($permission_id = null): array
     {
         try {
             if ($permission_id == null) {
@@ -263,7 +280,7 @@ class SRP extends Controller
      * @param $role_id
      * @return bool
      */
-    public function checkPermissionByName($permission_name = null, $role_id = null): bool
+    public static function checkPermissionByName($permission_name = null, $role_id = null): bool
     {
         try {
             $permission = RoleHasPermission::where('role_id', $role_id)
@@ -285,7 +302,7 @@ class SRP extends Controller
      * @param $role_id
      * @return bool
      */
-    public function checkPermissionByID($permission_id = null, $role_id = null): bool
+    public static function checkPermissionByID($permission_id = null, $role_id = null): bool
     {
         try {
             $permission = RoleHasPermission::where(['role_id' => $role_id, 'permission_id' => $permission_id])->first();
